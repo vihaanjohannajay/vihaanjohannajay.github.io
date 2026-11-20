@@ -44,7 +44,7 @@ h2{font:800 40px/1.1 var(--head);text-transform:uppercase;letter-spacing:.02em;m
 .meta strong{display:block;font:600 19px var(--head);letter-spacing:.02em}
 .meta span{color:var(--muted);font-size:14px}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:4px;padding:0 7px;font-size:12px;color:var(--muted);margin:4px 5px 0 0}
-.wave{width:100%;height:48px;cursor:pointer;display:block}
+.wave{width:100%;height:56px;cursor:pointer;display:block}
 .time{font-size:12px;color:var(--muted);text-align:right}
 .note{font-size:13px;color:var(--muted);border-left:2px solid var(--accent2);padding:4px 12px;margin-top:14px}
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 32px}
@@ -63,6 +63,24 @@ h2{font:800 40px/1.1 var(--head);text-transform:uppercase;letter-spacing:.02em;m
 .card h3{font:600 17px var(--head);margin-bottom:6px}
 .card p{color:var(--muted);font-size:15px}
 footer{padding:48px 0 0;color:var(--muted);font-size:14px}
+/* ===== project cards, mini player ===== */
+.grid.wide{grid-template-columns:1fr;gap:18px}
+.proj{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,1.7fr);gap:26px;align-items:center}
+.slot{aspect-ratio:16/9;display:grid;place-items:center;text-align:center;color:var(--muted);border:1px dashed var(--taupe);border-radius:8px;background:rgba(107,100,93,.12);font-size:14px;padding:10px}
+.pmedia video,.pmedia iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;background:#000;display:block}
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.shots .slot{aspect-ratio:16/10}
+.shots img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;display:block}
+.proj .btn{margin-top:14px}
+.mini{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;gap:10px;width:270px;padding:10px 12px;background:rgba(23,21,20,.94);backdrop-filter:blur(8px);border:1px solid var(--accent);border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.55);transform:translateY(24px) scale(.9);transform-origin:bottom right;opacity:0;pointer-events:none;transition:transform .35s,opacity .35s}
+.mini.show{transform:none;opacity:1;pointer-events:auto}
+.mini .mp{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid #b3202a;background:#b3202a;color:#fff;cursor:pointer;font-size:15px}
+.mini .mi{min-width:0;flex:1}
+.mini strong{display:block;font:600 16px var(--head);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini canvas{width:100%;height:30px;display:block}
+.mini .mx{background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px;padding:6px;line-height:1}
+.mini.min{width:auto;gap:4px;padding:8px}
+.mini.min .mi{display:none}
 /* ===== THEME: grunge stars (black, taupe, crimson, silver) ===== */
 :root{--star:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
 body{background:radial-gradient(900px 650px at 88% 6%,rgba(107,100,93,.26),transparent 70%),radial-gradient(800px 800px at -5% 75%,rgba(107,100,93,.2),transparent 70%),var(--bg);background-attachment:fixed}
@@ -90,7 +108,11 @@ button,a,.wave{touch-action:manipulation}
   .track{grid-template-columns:48px 1fr;padding:12px}
   .play{width:48px;height:48px}
   .track .wv{grid-column:1/-1}
-  .wave{height:56px}
+  .wave{height:64px}
+  .proj{grid-template-columns:1fr}
+  .shots{grid-template-columns:1fr 1fr}
+  .mini{right:10px;bottom:calc(66px + env(safe-area-inset-bottom));width:min(270px,calc(100vw - 20px))}
+  .mini.min{width:auto}
   .tabs{overflow-x:auto}
   .btn{padding:12px 18px;margin-bottom:10px}
 }
@@ -110,12 +132,12 @@ button,a,.wave{touch-action:manipulation}
 <section id="home" class="hero">
   <h1>Sound &amp; game designer.</h1>
   <canvas id="spec" aria-hidden="true"></canvas>
-  <p>I design the sounds and systems that make games feel good to play. Press play on any clip below and the spectrum above reacts to it.</p>
+  <p>Hey I'm Vihaan, a 3rd year B.Tech student studying CSE with specialization in Gaming Technology. I primarily work on sound design that gives games a soundscape that bring it to life, and I also work with game design. Press play on any clip below and the spectrum above reacts to it.</p>
   <a class="btn fill" href="#audio">Listen to my work</a><a class="btn" href="#contact">Get in touch</a>
 </section>
 
 <section id="audio">
-  <h2>Audio reel</h2>
+  <h2>Audio Reel</h2>
   <p class="sub">Sound effects and music from games and projects I’ve worked on. Click a waveform to jump to that spot.</p>
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" data-f="all">All</button>
@@ -128,19 +150,35 @@ button,a,.wave{touch-action:manipulation}
 
 <section id="tools">
   <h2>Software &amp; tools</h2>
-  <p class="sub">Replace the levels with your own. They are a rough guide to how comfortable I am in each tool.</p>
+  <p class="sub">This is a rough guide to how comfortable I am in each tool.</p>
   <div class="group"><h3>Audio</h3><div class="skills" id="sk-audio"></div></div>
   <div class="group"><h3>Game engines and middleware</h3><div class="skills" id="sk-eng"></div></div>
   <div class="group"><h3>Design and code</h3><div class="skills" id="sk-dev"></div></div>
 </section>
 
 <section id="games">
-  <h2>Game design</h2>
+  <h2>Game Design</h2>
   <p class="sub">Projects where I designed mechanics, levels or audio direction.</p>
-  <div class="grid">
-    <div class="card"><h3>Blob</h3><p>A twist on the classic 2D space shooter where health and ammo are the same. Worked on game and sound design. Link to itch.io or a trailer.</p></div>
-    <div class="card"><h3>Game Jam Entry</h3><p>Micro Jam 052: Winter. Wokred on sound and game design in a team of 7.</p></div>
-    <div class="card"><h3>Hackathon project</h3><p>What problem it solved, the tech used, and the outcome.</p></div>
+  <div class="grid wide">
+    <article class="card proj">
+      <div class="ptxt"><h3>Blob</h3><p>A twist on the classic 2D space shooter where health and ammo are the same. Worked on game and sound design.</p></div>
+      <div class="pmedia">
+        <!-- GAMEPLAY VIDEO: replace the <div class="slot"> below with ONE of these:
+          <video controls preload="metadata" poster="media/blob-poster.jpg"><source src="media/blob-gameplay.mp4" type="video/mp4"></video>
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Blob gameplay" allowfullscreen></iframe>
+        -->
+        <div class="slot">Blob gameplay video goes here</div>
+      </div>
+    </article>
+    <article class="card proj">
+      <div class="ptxt"><h3>Part Time Santa</h3><p>Developed a 2D shooter for Micro Jam 052 on the theme "Winter". I worked on sound design and game design in a team of 7.</p>
+        <!-- Replace the href below with your game's itch.io page -->
+        <a class="btn" href="https://vihaanjohannajay.itch.io" target="_blank" rel="noopener noreferrer">Play on itch.io &#8599;</a></div>
+      <div class="pmedia">
+        <!-- SCREENSHOTS: replace each <div class="slot"> with <img src="media/microjam-1.png" alt="Micro Jam 052 screenshot"> -->
+        <div class="shots"><div class="slot">Screenshot 1</div><div class="slot">Screenshot 2</div><div class="slot">Screenshot 3</div></div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -161,10 +199,16 @@ button,a,.wave{touch-action:manipulation}
 <section id="contact">
   <h2>Contact</h2>
   <p class="sub">Open to internships, collaborations and jam teams.</p>
-  <p><a href="mailto:you@example.com">you@example.com</a> &nbsp; <a href="https://github.com/vihaanjohannajay">GitHub</a> &nbsp; <a href="https://linkedin.com/in/vihaanjohannajay67">LinkedIn</a> &nbsp; <a href="https://vihaanjohannajay.itch.io">itch.io</a></p>
+  <p><a href="mailto:vihaanjohannajay@gmail.com">vihaanjohannajay.com</a> &nbsp; <a href="https://github.com/vihaanjohannajay" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp; <a href="https://linkedin.com/in/vihaanjohannajay67" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp; <a href="https://vihaanjohannajay.itch.io" target="_blank" rel="noopener noreferrer">itch.io</a></p>
   <footer>&copy; <span id="yr"></span> Vihaan. All audio on this site is my own work or used with permission, and may not be copied or reused.</footer>
 </section>
 </main>
+
+<div class="mini" id="mini" role="region" aria-label="Mini player">
+  <button class="mp" id="mp" aria-label="Play or pause">&#9654;</button>
+  <div class="mi"><strong id="mt">Nothing playing</strong><canvas id="ms" width="160" height="34"></canvas></div>
+  <button class="mx" id="mm" aria-label="Minimize player">&ndash;</button>
+</div>
 
 <script>
 /* ===== EDIT YOUR CONTENT HERE =====
@@ -179,9 +223,9 @@ const TRACKS = [
   {type:'music', title:'Boss fight',         project:'Game name, jam or client', tags:['electronic','combat'], src:''},
 ];
 const SKILLS = {
-  'sk-audio':[['FMOD / Wwise',70],['Reaper',80],['FL Studio',75],['Audacity',90]],
-  'sk-eng':[['Unity',80],['Unreal Engine',60],['Godot',50]],
-  'sk-dev':[['C#',75],['Python',80],['Figma',60],['Git / GitHub',80]],
+  'sk-audio':[['FL Studio',75],['FMOD / Wwise',50],['Audacity',70]],
+  'sk-eng':[['Unity',65]],
+  'sk-dev':[['Java',75],['Python',80],['Figma',65],['Git / GitHub',80],['Canva',85]],
 };
 /* ================================== */
 
@@ -195,7 +239,7 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.qu
   .observe(document.getElementById('tools'));
 
 // audio engine: Web Audio only (no <audio> tag, no direct file link, no download control)
-let AC, analyser, cur = null;
+let AC, analyser, cur = null, last = null, heroVisible = true;
 function init(){
   if (AC) return;
   AC = new (window.AudioContext||window.webkitAudioContext)();
@@ -220,30 +264,48 @@ async function load(t,i){
   catch(e){ t.buf = demo(t,i); }
   return t.buf;
 }
-function peaks(buf,n){
-  const d = buf.getChannelData(0), len = Math.min(d.length, buf.sampleRate*PREVIEW_SECONDS), step = Math.floor(len/n), out=[];
-  for (let i=0;i<n;i++){let m=0; for(let j=0;j<step;j+=8) m=Math.max(m,Math.abs(d[i*step+j]||0)); out.push(m);}
-  const mx = Math.max(...out)||1; return out.map(v=>v/mx);
+const NB=120;   // bars per waveform
+function peaks(buf,n){   // the real waveform: loudest + average level of each slice of the preview
+  const d=buf.getChannelData(0), len=Math.min(d.length,Math.floor(buf.sampleRate*PREVIEW_SECONDS)), step=Math.max(1,Math.floor(len/n)), out=[];
+  for(let i=0;i<n;i++){let mx=0,sum=0,c=0;for(let j=0;j<step;j+=4){const v=Math.abs(d[i*step+j]||0);if(v>mx)mx=v;sum+=v;c++}out.push(.55*mx+.9*(sum/(c||1)))}
+  const top=Math.max(...out)||1;return out.map(v=>Math.pow(v/top,.8));
 }
-function drawWave(t,frac=0){
-  const c=t.canvas, g=c.getContext('2d'), w=c.width, h=c.height, p=t.peaks; if(!p) return;
-  g.clearRect(0,0,w,h); const bw=w/p.length;
-  p.forEach((v,i)=>{g.fillStyle = i/p.length<frac ? '#e5393f' : '#4a4440'; const bh=Math.max(2,v*h*.9); g.fillRect(i*bw+1,(h-bh)/2,bw-2,bh);});
+// SoundCloud-style bars with a reflection. While playing, bars near the playhead ripple with the sound.
+function drawWave(t,frac=0,time=0,live=false){
+  const c=t.canvas,cw=c.clientWidth,ch=c.clientHeight;t.frac=frac;if(!cw||!ch)return;
+  const d=Math.min(devicePixelRatio||1,2);
+  if(c.width!==Math.round(cw*d)||c.height!==Math.round(ch*d)){c.width=Math.round(cw*d);c.height=Math.round(ch*d)}
+  const g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);g.clearRect(0,0,cw,ch);
+  const p=t.peaks||new Array(NB).fill(.06),n=p.length,bw=cw/n,base=ch*.68,pos=frac*n;
+  for(let i=0;i<n;i++){
+    let v=p[i];
+    if(live){const dist=i-pos,env=Math.exp(-dist*dist/70);v*=1+env*(.4*Math.sin(time/110-i*.7)+lvl*.9);if(i<pos)v*=1+.05*Math.sin(time/230+i*.4)}
+    v=Math.min(1,v);const played=i<pos,x=i*bw,w=Math.max(1,bw-1.2);
+    g.fillStyle=played?'#e5393f':'#5a5450';g.fillRect(x,base-Math.max(1.5,v*base*.95),w,Math.max(1.5,v*base*.95));
+    g.fillStyle=played?'rgba(229,57,63,.4)':'rgba(90,84,80,.45)';g.fillRect(x,base+1,w,Math.max(1,v*(ch-base)*.7));
+  }
 }
-function stop(){
+function stop(keepPos){     // keepPos = pause (remember where we were); otherwise reset
   if(!cur) return; try{cur.src.stop()}catch(e){}
-  cur.t.row.classList.remove('playing'); cur.t.btn.textContent='\u25B6'; drawWave(cur.t,0); cur.t.time.textContent=''; cur=null;
+  const c=cur; cur=null; c.t.row.classList.remove('playing'); c.t.btn.textContent='\u25B6'; c.t.time.textContent='';
+  const pos=keepPos?Math.min(.999,(AC.currentTime-c.start)/c.dur):0; last={t:c.t,i:c.i,pos}; drawWave(c.t,pos); updateMini();
 }
 async function play(t,i,from=0){
   init(); await AC.resume(); const buf = await load(t,i);
-  if(!t.peaks){t.peaks = peaks(buf,60);}
-  if (cur && cur.t===t && from===0){ stop(); return; }
+  if(!t.peaks){t.peaks = peaks(buf,NB);}
+  if (cur && cur.t===t && from===0){ stop(true); return; }
   stop();
   const dur = Math.min(buf.duration, PREVIEW_SECONDS), off = from*dur;
   const src = AC.createBufferSource(); src.buffer = buf; src.connect(analyser);
   src.start(0, off, dur-off); src.onended = ()=>{ if(cur && cur.src===src) stop(); };
-  cur = {t, src, start:AC.currentTime-off, dur};
-  t.row.classList.add('playing'); t.btn.textContent='\u275A\u275A';
+  cur = {t, i, src, start:AC.currentTime-off, dur}; last = {t, i, pos:from};
+  t.row.classList.add('playing'); t.btn.textContent='\u275A\u275A'; updateMini();
+}
+function updateMini(){
+  const m=document.getElementById('mini'); if(!m) return; const s=cur||last;
+  m.classList.toggle('show', !heroVisible && !!s);
+  if(s) document.getElementById('mt').textContent=s.t.title;
+  document.getElementById('mp').textContent=cur?'\u275A\u275A':'\u25B6';
 }
 
 // track list
@@ -252,16 +314,21 @@ TRACKS.forEach((t,i)=>{
   const row = document.createElement('div'); row.className='track'; t.row=row; row.dataset.type=t.type;
   row.innerHTML = `<button class="play" aria-label="Play ${t.title}">\u25B6</button>
     <div class="meta"><strong>${t.title}</strong><span>${t.project}</span><div>${t.tags.map(x=>`<span class="tag">${x}</span>`).join('')}</div></div>
-    <div class="wv"><canvas class="wave" width="480" height="96"></canvas><div class="time"></div></div>`;
+    <div class="wv"><canvas class="wave"></canvas><div class="time"></div></div>`;
   t.btn=row.querySelector('.play'); t.canvas=row.querySelector('canvas'); t.time=row.querySelector('.time');
-  t.btn.onclick=()=>play(t,i);
+  t.btn.onclick=()=>play(t,i,(!cur||cur.t!==t)&&last&&last.t===t?last.pos:0);
   t.canvas.onclick=e=>{const r=t.canvas.getBoundingClientRect(); play(t,i,(e.clientX-r.left)/r.width*.999);};
   row.addEventListener('contextmenu',e=>e.preventDefault());   // blocks right-click save on previews
   row.addEventListener('dragstart',e=>e.preventDefault());
   list.appendChild(row);
-  t.peaks = (()=>{const a=[];let s=i*7+3;for(let k=0;k<60;k++){s=(s*9301+49297)%233280;a.push(.15+.85*(s/233280));}return a;})();
   drawWave(t,0);
 });
+// decode every clip up front so each waveform shows the real audio before anyone presses play
+init();
+TRACKS.forEach((t,i)=>load(t,i).then(b=>{t.peaks=peaks(b,NB);drawWave(t,t.frac||0)}));
+const redraw=()=>requestAnimationFrame(()=>TRACKS.forEach(t=>{if(!cur||cur.t!==t)drawWave(t,t.frac||0)}));
+addEventListener('resize',redraw);
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',redraw));
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
   document.querySelectorAll('.track').forEach(r=>r.style.display=(b.dataset.f==='all'||r.dataset.type===b.dataset.f)?'':'none');
@@ -281,11 +348,26 @@ function frame(ts){
     const bh = v*h*.95; cg.fillStyle = active ? (i%8===0?'#cfcfcf':'#e5393f') : '#3a3532';
     cg.fillRect(i*bw+2,h-bh,bw-4,bh);
   }
-  if(cur){const f=Math.min(1,(AC.currentTime-cur.start)/cur.dur); drawWave(cur.t,f);
+  if(cur){const f=Math.min(1,(AC.currentTime-cur.start)/cur.dur); drawWave(cur.t,f,ts,true);
     cur.t.time.textContent=`${(AC.currentTime-cur.start).toFixed(1)}s / ${cur.dur.toFixed(1)}s`;}
+  drawMini(data,active,ts);
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+
+// floating mini player: appears when the big spectrum scrolls out of view
+const mini=document.getElementById('mini'), ms=document.getElementById('ms'), mg=ms.getContext('2d');
+function drawMini(data,active,ts){
+  if(!mini.classList.contains('show')||mini.classList.contains('min')) return;
+  const w=ms.width,h=ms.height,n=28,bw=w/n; mg.clearRect(0,0,w,h);
+  for(let i=0;i<n;i++){
+    const v=active?Math.max(.06,data[Math.floor(i*data.length/n*.8)]/255):.1+.05*Math.sin(ts/600+i*.5);
+    mg.fillStyle=active?(i%7===0?'#cfcfcf':'#e5393f'):'#3a3532'; mg.fillRect(i*bw+1,h-v*h,bw-2,v*h);
+  }
+}
+document.getElementById('mp').onclick=()=>{ if(cur) stop(true); else if(last) play(last.t,last.i,last.pos); };
+document.getElementById('mm').onclick=e=>{const m=mini.classList.toggle('min'); e.currentTarget.textContent=m?'+':'\u2013'; e.currentTarget.setAttribute('aria-label',m?'Expand player':'Minimize player')};
+new IntersectionObserver(es=>{heroVisible=es[0].isIntersecting;updateMini()}).observe(cv);
 
 // highlight current nav link
 const links=[...document.querySelectorAll('nav a')];
@@ -381,6 +463,8 @@ function fxFrame(t){
   if(sx>0&&on){const R=coarse?110:150,g=fg.createRadialGradient(sx,sy,0,sx,sy,R*1.2);g.addColorStop(0,'rgba(229,57,63,.09)');g.addColorStop(1,'rgba(229,57,63,0)');fg.fillStyle=g;fg.fillRect(sx-R*1.2,sy-R*1.2,R*2.4,R*2.4)}
 }
 if(reduce){fx.style.display='none'}else{requestAnimationFrame(fxFrame)}
+// any web or PDF link opens in a new tab (mailto and #section links are left alone)
+document.querySelectorAll('a[href^="http"],a[href$=".pdf"]').forEach(a=>{a.target='_blank';a.rel='noopener noreferrer'});
 </script>
 </body>
 </html>
