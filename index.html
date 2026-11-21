@@ -199,7 +199,7 @@ button,a,.wave{touch-action:manipulation}
 <section id="contact">
   <h2>Contact</h2>
   <p class="sub">Open to internships, collaborations and jam teams.</p>
-  <p><a href="mailto:vihaanjohannajay@gmail.com">vihaanjohannajay.com</a> &nbsp; <a href="https://github.com/vihaanjohannajay" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp; <a href="https://linkedin.com/in/vihaanjohannajay67" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp; <a href="https://vihaanjohannajay.itch.io" target="_blank" rel="noopener noreferrer">itch.io</a></p>
+  <p><a href="mailto:vihaanjohannajay@gmail.com">vihaanjohannajay@gmail.com</a> &nbsp; <a href="https://github.com/vihaanjohannajay" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp; <a href="https://linkedin.com/in/vihaanjohannajay67" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp; <a href="https://vihaanjohannajay.itch.io" target="_blank" rel="noopener noreferrer">itch.io</a></p>
   <footer>&copy; <span id="yr"></span> Vihaan. All audio on this site is my own work or used with permission, and may not be copied or reused.</footer>
 </section>
 </main>
@@ -216,16 +216,19 @@ button,a,.wave{touch-action:manipulation}
    Make previews 30 s max, mono/128 kbps MP3, ideally with a quiet voice tag. */
 const PREVIEW_SECONDS = 30;
 const TRACKS = [
-  {type:'sfx',   title:'Laser charge-up',   project:'Game name, jam or client', tags:['sci-fi','weapon'], src:''},
-  {type:'sfx',   title:'Footsteps on gravel', project:'Game name, jam or client', tags:['foley','environment'], src:''},
-  {type:'sfx',   title:'UI confirm',         project:'Game name, jam or client', tags:['UI','menu'], src:''},
-  {type:'music', title:'Main theme',         project:'Game name, jam or client', tags:['orchestral','loop'], src:''},
-  {type:'music', title:'Boss fight',         project:'Game name, jam or client', tags:['electronic','combat'], src:''},
+  {type:'sfx',   title:'Sword Slash Air',   project:'Blood Moon, Electrum Interactive', tags:['realistic','weapon'], src:'audio\sword_slash_air.mp3'},
+  {type:'sfx',   title:'Sword Slash Air 2',   project:'Blood Moon, Electrum Interactive', tags:['realistic','weapon'], src:'audio\sword_slash_air_2.mp3'},
+  {type:'sfx',   title:'Gong Impact',   project:'Blood Moon, Electrum Interactive', tags:['cinematic','instrument'], src:'audio\gong_impact.mp3'},
+  {type:'sfx',   title:'Drop and Roll',   project:'Blood Moon, Electrum Interactive', tags:['2D game sfx','movement'], src:'audio\drop_and_roll.mp3'},
+  {type:'sfx',   title:'Worm Slither',   project:'Blood Moon, Electrum Interactive', tags:['realistic','movement'], src:'audio\worm_slither.mp3'},
+  {type:'music', title:'Cold Blooded_demo',         project:'Independent track', tags:['hip hop','trap'], src:'audio\Cold_Blooded_demo.mp3'},
+  {type:'music', title:'ICBM demo',         project:'Independent track', tags:['hip hop','trap', 'experimental'], src:'audio\ICBM_demo.mp3'},
+  {type:'music', title:'Urus demo',         project:'Independent track', tags:['hip hop','trap', 'electronic'], src:'audio\Urus_demo.mp3'},
 ];
 const SKILLS = {
-  'sk-audio':[['FL Studio',75],['FMOD / Wwise',50],['Audacity',70]],
+  'sk-audio':[['FL Studio',75],['Wwise',50],['Audacity',70],['Songwriting',95]],
   'sk-eng':[['Unity',65]],
-  'sk-dev':[['Java',75],['Python',80],['Figma',65],['Git / GitHub',80],['Canva',85]],
+  'sk-dev':[['Java',75],['Python',75],['Figma',65],['Git / GitHub',80],['Canva',90]],
 };
 /* ================================== */
 
