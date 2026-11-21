@@ -216,14 +216,14 @@ button,a,.wave{touch-action:manipulation}
    Make previews 30 s max, mono/128 kbps MP3, ideally with a quiet voice tag. */
 const PREVIEW_SECONDS = 30;
 const TRACKS = [
-  {type:'sfx',   title:'Sword Slash Air',   project:'Blood Moon, Electrum Interactive', tags:['realistic','weapon'], src:'audio\sword_slash_air.mp3'},
-  {type:'sfx',   title:'Sword Slash Air 2',   project:'Blood Moon, Electrum Interactive', tags:['realistic','weapon'], src:'audio\sword_slash_air_2.mp3'},
-  {type:'sfx',   title:'Gong Impact',   project:'Blood Moon, Electrum Interactive', tags:['cinematic','instrument'], src:'audio\gong_impact.mp3'},
-  {type:'sfx',   title:'Drop and Roll',   project:'Blood Moon, Electrum Interactive', tags:['2D game sfx','movement'], src:'audio\drop_and_roll.mp3'},
-  {type:'sfx',   title:'Worm Slither',   project:'Blood Moon, Electrum Interactive', tags:['realistic','movement'], src:'audio\worm_slither.mp3'},
-  {type:'music', title:'Cold Blooded_demo',         project:'Independent track', tags:['hip hop','trap'], src:'audio\Cold_Blooded_demo.mp3'},
-  {type:'music', title:'ICBM demo',         project:'Independent track', tags:['hip hop','trap', 'experimental'], src:'audio\ICBM_demo.mp3'},
-  {type:'music', title:'Urus demo',         project:'Independent track', tags:['hip hop','trap', 'electronic'], src:'audio\Urus_demo.mp3'},
+  {type:'sfx',   title:'Sword Slash Air',   project:'Blood Moon, Electrum Interactive', tags:['realistic','weapon'], src:'audio/sword_slash_air.mp3'},
+  {type:'sfx',   title:'Sword Slash Air 2',   project:'Blood Moon, Electrum Interactive', tags:['realistic','weapon'], src:'audio/sword_slash_air_2.mp3'},
+  {type:'sfx',   title:'Gong Impact',   project:'Blood Moon, Electrum Interactive', tags:['cinematic','instrument'], src:'audio/gong_impact.mp3'},
+  {type:'sfx',   title:'Drop and Roll',   project:'Blood Moon, Electrum Interactive', tags:['2D game sfx','movement'], src:'audio/drop_and_roll.mp3'},
+  {type:'sfx',   title:'Worm Slither',   project:'Blood Moon, Electrum Interactive', tags:['realistic','movement'], src:'audio/worm_slither.mp3'},
+  {type:'music', title:'Cold Blooded_demo',         project:'Independent track', tags:['hip hop','trap'], src:'audio/Cold_Blooded_demo.mp3'},
+  {type:'music', title:'ICBM demo',         project:'Independent track', tags:['hip hop','trap', 'experimental'], src:'audio/ICBM_demo.mp3'},
+  {type:'music', title:'Urus demo',         project:'Independent track', tags:['hip hop','trap', 'electronic'], src:'audio/Urus_demo.mp3'},
 ];
 const SKILLS = {
   'sk-audio':[['FL Studio',75],['Wwise',50],['Audacity',70],['Songwriting',95]],
@@ -264,7 +264,11 @@ function demo(t,i){            // placeholder sound so the player works before y
 async function load(t,i){
   if (t.buf) return t.buf;
   try { if(!t.src) throw 0; const r = await fetch(t.src); t.buf = await AC.decodeAudioData(await r.arrayBuffer()); }
-  catch(e){ t.buf = demo(t,i); }
+  catch(e){
+    t.buf = demo(t,i);
+    if(t.src){ console.warn('Could not load', t.src, e);   // shows the real reason in the browser console (F12)
+      if(location.protocol==='file:'||location.hostname==='localhost'){const sp=t.row&&t.row.querySelector('.meta span'); if(sp) sp.textContent+=' \u2022 FILE NOT LOADED: '+t.src;} }
+  }
   return t.buf;
 }
 const NB=120;   // bars per waveform
